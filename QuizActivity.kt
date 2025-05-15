@@ -1,80 +1,95 @@
-package com.example.flashcardapp
+package com.example.assignment2
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 
 class QuizActivity : AppCompatActivity() {
 
-    // arrays for questions and answers
+    // the arrays
     private val questions = arrayOf(
-        "Nelson Mandela was the president of South Africa in 1994.",
-        "The capital of France is London.",
-        "The Earth is flat.",
-        "Water boils at 100 degrees Celsius.",
-        "The human body has 206 bones."
+        "Nelson Mandela was the president of South Africa in 1994?",
+        "The capital of France is London?",
+        "The Earth is flat?",
+        "Water boils at 100 degrees Celsius?",
+        "The Great Wall of China is visible from space?"
     )
-    private val answers = arrayOf(true, false, false, true, true)
+    private val answers = booleanArrayOf(true, false, false, true, false)
 
-    private var currentQuestionIndex = 0
-    private var score = 0
-
-    private lateinit var questionText: TextView
+    // variables for UI elements
+    private lateinit var questionTextView: TextView
     private lateinit var trueButton: Button
     private lateinit var falseButton: Button
+    private lateinit var nextButton: Button
+    private lateinit var feedbackCardView: CardView
+    private lateinit var feedbackTextView: TextView
+
+    // variable for score
+    private var score = 0
+    private var currentQuestionIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        // UI elements
-        questionText = findViewById(R.id.questionText)
+        // Initialize UI elements
+        questionTextView = findViewById(R.id.questionText)
         trueButton = findViewById(R.id.trueButton)
         falseButton = findViewById(R.id.falseButton)
+        nextButton = findViewById(R.id.nextButton)
+        feedbackCardView = findViewById(R.id.cardView7)
+        feedbackTextView = findViewById(R.id.feedbackView)
 
-        // first question
+        // click listeners for the buttons
+        trueButton.setOnClickListener { checkAnswer(true) }
+        falseButton.setOnClickListener { checkAnswer(false) }
+        nextButton.setOnClickListener { nextQuestion() }
+
+        // Display the first question
         displayQuestion()
-
-        // OnClickListener for the true button
-        trueButton.setOnClickListener {
-            checkAnswer(true)
-        }
-
-        // OnClickListener for the false button
-        falseButton.setOnClickListener {
-            checkAnswer(false)
-        }
+        feedbackCardView.visibility = View.GONE
+        nextButton.visibility = View.GONE
     }
 
+    // Function to display a question
     private fun displayQuestion() {
-        //the question
-        if (currentQuestionIndex < questions.size) {
-            questionText.text = questions[currentQuestionIndex]
-        } else {
-            // If all questions have been answered, move to the score activity
-            val intent = Intent(this, ScoreActivity::class.java)
-            intent.putExtra("score", score)
-            intent.putExtra("questions", questions) // Pass questions and answers for review
-            intent.putExtra("answers", answers)
-            startActivity(intent)
-            finish() //prevent back button
-        }
+        questionTextView.text = questions[currentQuestionIndex]
+        // Enable True and False buttons for each question.
+        trueButton.isEnabled = true
+        falseButton.isEnabled = true
+        feedbackCardView.visibility = View.GONE
+        nextButton.visibility = View.GONE
     }
 
+    //Function to check the answer
     private fun checkAnswer(userAnswer: Boolean) {
-        if (currentQuestionIndex < answers.size) {
-            if (userAnswer == answers[currentQuestionIndex]) {
-                score++
-                Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Incorrect!", Toast.LENGTH_SHORT).show()
-            }
+        val correctAnswer = answers[currentQuestionIndex]
+        if (userAnswer == correctAnswer) {
+            feedbackTextView.text = "Correct!"
+            score++
+        } else {
+            feedbackTextView.text = "Incorrect!"
+        }
+        feedbackCardView.visibility = View.VISIBLE // Show feedback
+        trueButton.isEnabled = false 
+        falseButton.isEnabled = false 
+        nextButton.visibility = View.VISIBLE //show the next button
+    }
 
-            currentQuestionIndex++
-            displayQuestion() //display next question
+    // Function to move to the next question
+    private fun nextQuestion() {
+        currentQuestionIndex++
+        if (currentQuestionIndex < questions.size) {
+            displayQuestion()
+        } else {
+            // Shows the result (all questions answered)
+            Toast.makeText(this, "Quiz finished! Your score is $score out of ${questions.size}", Toast.LENGTH_LONG).show()
+            finish() //ends the activity
         }
     }
 }
+
