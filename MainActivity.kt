@@ -1,10 +1,12 @@
-package com.example.flashcardapp
+package com.example.assignment2
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import android.widget.LinearLayout
+import com.example.assignment2.QuizActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,19 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // UI elements
-        val welcomeText = findViewById<TextView>(R.id.welcomeText)
-        val descriptionText = findViewById<TextView>(R.id.descriptionText)
-        val startButton = findViewById<Button>(R.id.startButton)
+        //button from the layout
+        val startButton: Button = findViewById(R.id.startButton)
 
-        // welcome message and description
-        welcomeText.text = "Welcome to Flashcard Study App!"
-        descriptionText.text = "This app will help you study with flashcards. You will be presented with a series of questions, and you can answer them by selecting 'True' or 'False'. Good luck!"
-
-        // OnClickListener for the start button to navigate to the QuizActivity
+        //a click listener for the button
         startButton.setOnClickListener {
+            // Show a toast message
+            Toast.makeText(this, "Starting Quiz...", Toast.LENGTH_SHORT).show()
+
+            // Starts the QuizActivity
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
         }
     }
-}
