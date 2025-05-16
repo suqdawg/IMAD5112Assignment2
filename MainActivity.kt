@@ -12,18 +12,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // Make sure this layout file exists
 
-        //button from the layout
-        val startButton: Button = findViewById(R.id.startButton)
+        //the button from the layout
+        val startButton: Button = findViewById(R.id.startButton) //  Replace with your button's ID
 
         //a click listener for the button
         startButton.setOnClickListener {
-            // Show a toast message
-            Toast.makeText(this, "Starting Quiz...", Toast.LENGTH_SHORT).show()
+            // 3. Show a toast message
+            Toast.makeText(this , "Starting Quiz..." , Toast.LENGTH_SHORT).show()
 
-            // Starts the QuizActivity
-            val intent = Intent(this, QuizActivity::class.java)
+            // 4. Starts the QuizActivity
+            val intent = Intent(this , QuizActivity::class.java) // Replace QuizActivity if needed.
             startActivity(intent)
         }
     }
+}
