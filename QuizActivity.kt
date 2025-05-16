@@ -1,8 +1,6 @@
 package com.example.assignment2
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -33,12 +31,13 @@ class QuizActivity : AppCompatActivity() {
     // variable for score
     private var score = 0
     private var currentQuestionIndex = 0
+    private val userAnswers = mutableListOf<Boolean>() //store's user's answers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        // Initialize UI elements
+        // Initializes UI elements
         questionTextView = findViewById(R.id.questionText)
         trueButton = findViewById(R.id.trueButton)
         falseButton = findViewById(R.id.falseButton)
@@ -46,12 +45,12 @@ class QuizActivity : AppCompatActivity() {
         feedbackCardView = findViewById(R.id.cardView7)
         feedbackTextView = findViewById(R.id.feedbackView)
 
-        // click listeners for the buttons
+        // for the listeners for the buttons
         trueButton.setOnClickListener { checkAnswer(true) }
         falseButton.setOnClickListener { checkAnswer(false) }
         nextButton.setOnClickListener { nextQuestion() }
 
-        // Display the first question
+        // Displays the first question
         displayQuestion()
         feedbackCardView.visibility = View.GONE // Hide feedback card initially
         nextButton.visibility = View.GONE
@@ -60,15 +59,16 @@ class QuizActivity : AppCompatActivity() {
     // Function to display a question
     private fun displayQuestion() {
         questionTextView.text = questions[currentQuestionIndex]
-        // Enable True and False buttons for each question.
+        // Enables True and False buttons for each question.
         trueButton.isEnabled = true
         falseButton.isEnabled = true
-        feedbackCardView.visibility = View.GONE // Hide feedback when a new question is displayed.
+        feedbackCardView.visibility = View.GONE // Hides feedback when a new question is displayed.
         nextButton.visibility = View.GONE
     }
 
     // Function to check the answer
     private fun checkAnswer(userAnswer: Boolean) {
+        userAnswers.add(userAnswer) // Store's the user's answer
         val correctAnswer = answers[currentQuestionIndex]
         if (userAnswer == correctAnswer) {
             feedbackTextView.text = "Correct!"
@@ -77,10 +77,9 @@ class QuizActivity : AppCompatActivity() {
             feedbackTextView.text = "Incorrect!"
         }
         feedbackCardView.visibility = View.VISIBLE // Show feedback
-        trueButton.isEnabled = false  // Disable buttons after answering
-        falseButton.isEnabled = false // Disable buttons after answering
+        trueButton.isEnabled = false  // Disables buttons after answering
+        falseButton.isEnabled = false // Disables buttons after answering
         nextButton.visibility = View.VISIBLE //show the next button
-
     }
 
     // Function to move to the next question
@@ -89,13 +88,9 @@ class QuizActivity : AppCompatActivity() {
         if (currentQuestionIndex < questions.size) {
             displayQuestion()
         } else {
-            Toast.makeText(this, "Quiz finished!", Toast.LENGTH_LONG).show()
-
-            nextButton.setOnClickListener {
-
-                Toast.makeText(this , "Showing Score..." , Toast.LENGTH_SHORT).show()
-            }
+            // Shows the result (all questions answered)
+            Toast.makeText(this, "Your score is $score out of ${questions.size}", Toast.LENGTH_LONG).show()
+            finish() //ends the activity
         }
     }
 }
-
