@@ -1,5 +1,21 @@
 # IMAD5112Assignment2
+
 Assignment 2 of Introduction to Mobile App Development
+
+
+
+To BEGIN THE APP, you must firest launch it from the App Menu and it is titled Assignent 2.
+Upon welcome screen you will see an introduction and the app instructions. With one Start Button.
+Click "start Quiz" to begin quizes.
+Thers five questions and answers will show Correct or Incorrect below the first card. Furthermore, you should be able to answer.
+Click True or False to answer all five questions.
+The app will show you the Feedback card after each answer.
+The app will show you thwe Next button after each answer.
+You will advance to the net activity from there.
+A toast always pops up for a button click, whatch out for them as you answer questions.
+Your score will also pop up on a toaster as you progree to the next page. Please ensure to see your score after each quiz.
+
+
 
 // PICTURES
 
