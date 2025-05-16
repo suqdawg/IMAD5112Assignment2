@@ -5,76 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3A3A3A"
-    android:padding="16dp" >
+    android:padding="16dp"
+    tools:context=".ScoreActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="174dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="50dp"
+        android:id="@+id/cardView5"
+        android:layout_width="382dp"
+        android:layout_height="567dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="11dp"
         android:backgroundTint="#00B8D4"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
         app:cardCornerRadius="25dp"
         app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView3"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/scoreText"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:text="Your Score"
-            android:textAlignment="center"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-    </androidx.cardview.widget.CardView>
+            android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="365dp"
-        android:layout_height="218dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#00B8D4"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-        <TextView
-            android:id="@+id/feedbackText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="70dp"
-            android:text="Feedback"
-            android:textAlignment="center"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:typeface="monospace" />
+            <TextView
+                android:id="@+id/reviewText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="70dp"
+                android:text="Review Answers"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:typeface="monospace"
+                tools:layout_editor_absoluteX="176dp"
+                tools:layout_editor_absoluteY="623dp" />
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="165dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginBottom="30dp"
+        android:id="@+id/exitButton"
+        android:layout_width="131dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="10dp"
+        android:text="Exit"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="monospace"
         android:backgroundTint="#FFAB00"
-        android:text="Review Answers"
-        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
