@@ -1,17 +1,18 @@
 package com.example.assignment2
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import android.view.View
+import android.widget.Button // Import Button
+import android.widget.Toast
 
 class ReviewActivity : AppCompatActivity() {
 
     private lateinit var reviewLayout: LinearLayout
-    private lateinit var exitButton: Button
+    private lateinit var exitButton: Button // Declare exitButton
     private lateinit var reviewCardView: CardView
 
     private lateinit var questions: Array<String>
@@ -21,12 +22,12 @@ class ReviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_review)
+        setContentView(R.layout.activity_review) // Create activity_review.xml
 
         // Initialize UI elements
-        reviewLayout = findViewById(R.id.reviewLayout)
+        reviewLayout = findViewById(R.id.reviewText)
         exitButton = findViewById(R.id.exitButton)
-        reviewCardView = findViewById(R.id.reviewCardView)
+        reviewCardView = findViewById(R.id.cardView5)
 
         // Get data from the intent
         questions = intent.getStringArrayExtra("questions") ?: emptyArray()
@@ -36,7 +37,8 @@ class ReviewActivity : AppCompatActivity() {
 
         // Set click listener for the exit button
         exitButton.setOnClickListener {
-            finish() 
+            Toast.makeText(this, "Closing Quiz...", Toast.LENGTH_SHORT).show()
+            finish() // Close the activity
         }
 
         displayReview()
@@ -46,48 +48,43 @@ class ReviewActivity : AppCompatActivity() {
         reviewLayout.removeAllViews()
 
         for (i in questions.indices) {
-            val questionText = TextView(this)
-            questionText.text = questions[i]
-
-            val correctAnswerText = TextView(this)
-            correctAnswerText.text = "Correct Answer: ${if (answers[i]) "True" else "False"}"
-
-            val userAnswerText = TextView(this)
-            userAnswerText.text = "Your Answer: ${if (userAnswers[i]) "True" else "False"}"
-
-            val resultText = TextView(this)
-            if (userAnswers[i] == answers[i]) {
-                resultText.text = "Result: Correct"
-                resultText.setTextColor(getColor(android.R.color.holo_green_dark))
-            } else {
-                resultText.text = "Result: Incorrect"
-                resultText.setTextColor(getColor(android.R.color.holo_red_dark))
-            }
-
-            // Add padding and margins
-            val layoutParams = LinearLayout.LayoutParams(
+            val linearLayout = LinearLayout(this)
+            linearLayout.orientation = LinearLayout.VERTICAL
+            linearLayout.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(0, 8, 0, 8)
-            questionText.layoutParams = layoutParams
-            correctAnswerText.layoutParams = layoutParams
-            userAnswerText.layoutParams = layoutParams
-            resultText.layoutParams = layoutParams
-            questionText.setPadding(16, 8, 16, 8)
-            correctAnswerText.setPadding(16, 8, 16, 8)
-            userAnswerText.setPadding(16, 8, 16, 8)
-            resultText.setPadding(16, 8, 16, 8)
+            linearLayout.setPadding(16, 16, 16, 16)
 
+            val questionText = TextView(this)
+            questionText.text = questions[i]
             questionText.textSize = 18f
-            correctAnswerText.textSize = 16f
-            userAnswerText.textSize = 16f
-            resultText.textSize = 16f
+            questionText.setTextColor(getColor(R.color.black))
 
-            reviewLayout.addView(questionText)
-            reviewLayout.addView(correctAnswerText)
-            reviewLayout.addView(userAnswerText)
-            reviewLayout.addView(resultText)
+            val correctAnswerText = TextView(this)
+            correctAnswerText.text = "Correct Answer: ${if (answers[i]) "True" else "False"}"
+            correctAnswerText.textSize = 16f
+            correctAnswerText.setTextColor(getColor(R.color.black))
+
+            val userAnswerText = TextView(this)
+            userAnswerText.text = "Your Answer: ${if (userAnswers[i]) "True" else "False"}"
+            userAnswerText.textSize = 16f
+            userAnswerText.setTextColor(getColor(R.color.black))
+
+            val resultText = TextView(this)
+            resultText.text = "Result: ${if (userAnswers[i] == answers[i]) "Correct" else "Incorrect"}"
+            resultText.textSize = 16f
+            resultText.setTextColor(
+                if (userAnswers[i] == answers[i]) getColor(R.color.green_dark)  // corrected
+                else getColor(R.color.red_dark)    // corrected
+            )
+
+            linearLayout.addView(questionText)
+            linearLayout.addView(correctAnswerText)
+            linearLayout.addView(userAnswerText)
+            linearLayout.addView(resultText)
+
+            reviewLayout.addView(linearLayout)
         }
     }
 }
