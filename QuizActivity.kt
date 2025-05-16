@@ -1,6 +1,8 @@
 package com.example.assignment2
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -51,7 +53,7 @@ class QuizActivity : AppCompatActivity() {
 
         // Display the first question
         displayQuestion()
-        feedbackCardView.visibility = View.GONE
+        feedbackCardView.visibility = View.GONE // Hide feedback card initially
         nextButton.visibility = View.GONE
     }
 
@@ -61,11 +63,11 @@ class QuizActivity : AppCompatActivity() {
         // Enable True and False buttons for each question.
         trueButton.isEnabled = true
         falseButton.isEnabled = true
-        feedbackCardView.visibility = View.GONE
+        feedbackCardView.visibility = View.GONE // Hide feedback when a new question is displayed.
         nextButton.visibility = View.GONE
     }
 
-    //Function to check the answer
+    // Function to check the answer
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = answers[currentQuestionIndex]
         if (userAnswer == correctAnswer) {
@@ -75,9 +77,10 @@ class QuizActivity : AppCompatActivity() {
             feedbackTextView.text = "Incorrect!"
         }
         feedbackCardView.visibility = View.VISIBLE // Show feedback
-        trueButton.isEnabled = false 
-        falseButton.isEnabled = false 
+        trueButton.isEnabled = false  // Disable buttons after answering
+        falseButton.isEnabled = false // Disable buttons after answering
         nextButton.visibility = View.VISIBLE //show the next button
+
     }
 
     // Function to move to the next question
@@ -86,9 +89,12 @@ class QuizActivity : AppCompatActivity() {
         if (currentQuestionIndex < questions.size) {
             displayQuestion()
         } else {
-            // Shows the result (all questions answered)
-            Toast.makeText(this, "Quiz finished! Your score is $score out of ${questions.size}", Toast.LENGTH_LONG).show()
-            finish() //ends the activity
+            Toast.makeText(this, "Quiz finished!", Toast.LENGTH_LONG).show()
+
+            nextButton.setOnClickListener {
+
+                Toast.makeText(this , "Showing Score..." , Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
