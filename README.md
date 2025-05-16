@@ -1,2 +1,2 @@
 # IMAD5112Assignment2
-Introduction to Mobile App Development
+Assignment 2 of Introduction to Mobile App Development
